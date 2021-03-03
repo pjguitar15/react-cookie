@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import Homepage from './Homepage/Homepage.jsx'
-
 import { LoginHandler, IsLoggedIn, LoginAlertError } from '../GlobalState'
 import { Link } from 'react-router-dom'
 import { Alert } from 'react-bootstrap'
