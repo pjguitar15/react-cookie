@@ -13,21 +13,15 @@ const AddPost = () => {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className='AddPost'>
           <div className='postUserImg'>
-            <div
-              style={{ background: 'tomato', height: 'auto', width: '100%' }}
-              className='imgParent'
-            >
-              <img
-                style={{
-                  height: '100%',
-                  objectFit: 'cover',
-                  // width: '100%',
-                  background: 'lightgreen',
-                }}
-                src={currLoggedIn.img}
-                alt='userimg'
-              />
-            </div>
+            <img
+              style={{
+                clipPath: 'circle()',
+                width: '100%',
+                objectFit: 'cover',
+              }}
+              src={currLoggedIn.img}
+              alt='userimg'
+            />
           </div>
           <div className='addPostRightCol'>
             <div>
@@ -55,13 +49,13 @@ const AddPost = () => {
               <button style={{ fontSize: '12px' }} className='likeButton'>
                 <i className='fas fa-smile-beam'></i> Feeling
               </button>
-              <div style={{ position: 'absolute', left: '40rem' }}>
+              {/* <div style={{ position: 'absolute', left: '40rem' }}>
                 <ul>
                   <li>Great</li>
                   <li>Cool</li>
                   <li>Awesome</li>
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -17,7 +17,7 @@ const PostComponent = () => {
                   className='imgParent'
                 >
                   <img
-                    style={{ height: '100%', objectFit: 'cover' }}
+                    style={{ clipPath: 'circle()', objectFit: 'cover' }}
                     src={item.img}
                     alt='userimg'
                   />
