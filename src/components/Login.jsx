@@ -14,6 +14,11 @@ const Login = () => {
         <Homepage />
       ) : (
         <div className='Login'>
+          <Alert variant='info' className='text-center'>
+            <b>Test account:</b>
+            <br />
+            <b>Username:</b> admin / <b>Password:</b> admin
+          </Alert>
           <div>
             <h2 className='loginText'>Login</h2>
           </div>

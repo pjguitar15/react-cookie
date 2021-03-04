@@ -13,8 +13,20 @@ const AddPost = () => {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className='AddPost'>
           <div className='postUserImg'>
-            <div className='imgParent'>
-              <img src={currLoggedIn.img} alt='img' />
+            <div
+              style={{ background: 'tomato', height: 'auto', width: '100%' }}
+              className='imgParent'
+            >
+              <img
+                style={{
+                  height: '100%',
+                  objectFit: 'cover',
+                  // width: '100%',
+                  background: 'lightgreen',
+                }}
+                src={currLoggedIn.img}
+                alt='userimg'
+              />
             </div>
           </div>
           <div className='addPostRightCol'>
@@ -43,6 +55,13 @@ const AddPost = () => {
               <button style={{ fontSize: '12px' }} className='likeButton'>
                 <i className='fas fa-smile-beam'></i> Feeling
               </button>
+              <div style={{ position: 'absolute', left: '40rem' }}>
+                <ul>
+                  <li>Great</li>
+                  <li>Cool</li>
+                  <li>Awesome</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
