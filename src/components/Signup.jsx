@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom'
 
 const Signup = () => {
   const signUpHandler = useContext(SignUpHandler)
-  const [isAlertSuccess, setIsAlertSuccess] = useState(false)
-  const [isAlertDanger, setIsAlertDanger] = useState(false)
+  const [isAlertSuccess] = useState(false)
+  const [isAlertDanger] = useState(false)
   const [errorMessage] = useContext(SignUpErrorMessage)
   const [profileUrl, setProfileUrl] = useContext(SignUpProfileUrl)
   const [selectedProf, setSelectedProf] = useContext(SignUpSelectedProf)
