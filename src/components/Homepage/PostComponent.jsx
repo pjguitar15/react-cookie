@@ -8,7 +8,7 @@ const PostComponent = () => {
     const updatedList = postData.map((item) => {
       if (item.id === id) {
         const isLiked = item.likes.includes(currLoggedIn.fullname)
-
+        
         return !isLiked
           ? {
               ...item,
