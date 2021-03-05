@@ -29,6 +29,13 @@ const GlobalState = ({ children }) => {
       password: 'admin',
       fullname: 'Admin',
       img: 'https://lovelytab.com/wp-content/uploads/2019/02/Homer-Simpson-Wallpapers-1024x640.jpg'
+    },
+    {
+      id: 2,
+      username: 'adminadmin',
+      password: 'adminadmin',
+      fullname: 'adminadmin',
+      img: 'https://i.pinimg.com/originals/2c/a4/5a/2ca45a16168e3d22dc895c40b554f00d.png'
     }
   ])
   const [isLoggedIn, setIsLoggedIn] = useState(false)

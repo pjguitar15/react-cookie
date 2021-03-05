@@ -8,7 +8,7 @@ const PostComponent = () => {
     const updatedList = postData.map((item) => {
       if (item.id === id) {
         const isLiked = item.likes.includes(currLoggedIn.fullname)
-        
+
         return !isLiked
           ? {
               ...item,
@@ -92,6 +92,66 @@ const PostComponent = () => {
                   </div>
                 </div>
               </div>
+              <hr />
+
+              {/* comment starts here */}
+              <div
+                className='commentDiv'
+                style={{ display: 'flex', marginBottom: '20px' }}
+              >
+                <div style={{ width: '10%' }}></div>
+                <div
+                  style={{
+                    width: '90%',
+                    borderLeft: '5px #F2F2F2 solid',
+                    paddingLeft: '20px',
+                  }}
+                  className='mainPostContent'
+                >
+                  <div>
+                    <h6>Comment 1</h6>
+                  </div>
+
+                  <p className='postText'>This is a comment</p>
+
+                  <div>
+                    <div>
+                      <button
+                        onClick={() => niceHandler(item.id)}
+                        style={{ fontSize: '10px', padding: '6px 10px' }}
+                        className='likeButton'
+                      >
+                        <i className='fas fa-thumbs-up'></i> nice{item.nice}
+                      </button>
+                      <button
+                        onClick={() => nopeHandler(item.id)}
+                        style={{ fontSize: '10px', padding: '6px 10px' }}
+                        className='likeButton'
+                      >
+                        <i className='fas fa-thumbs-down'></i> nope{item.nope}
+                      </button>
+                      <button
+                        style={{ fontSize: '10px', padding: '6px 10px' }}
+                        className='likeButton'
+                      >
+                        <i
+                          style={{ marginRight: '4px' }}
+                          class='fas fa-comment'
+                        ></i>
+                        reply
+                      </button>
+                    </div>
+                    <input
+                      style={{ display: 'none' }}
+                      placeholder='Reply'
+                      className='replyInput'
+                      type='text'
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* comment ends here */}
             </div>
           </div>
         ))
