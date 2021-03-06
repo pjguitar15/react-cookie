@@ -3,7 +3,7 @@ import { PostData, CurrLoggedIn } from '../../GlobalState'
 const PostComponent = () => {
   const [postData, setPostData] = useContext(PostData)
   const [currLoggedIn] = useContext(CurrLoggedIn)
-  const [replyShow, setReplyShow] = useState(false)
+  const [inputValue, setInputValue] = useState('')
   const [commentTest, setCommentTest] = useState([
     {
       id: 1,
@@ -59,15 +59,13 @@ const PostComponent = () => {
     setPostData([...updatedList])
   }
 
+  const replyCommentHandler = (e) => {
+    e.preventDefault()
+    alert(inputValue)
+  }
+
   const replyHandler = (id) => {
-    const updatelist = commentTest.map((item) => {
-      if (item.id === id) {
-        const currShow = item.show
-        return { ...item, show: !currShow }
-      }
-      return item
-    })
-    setCommentTest([...updatelist])
+    
   }
   return (
     <>
@@ -98,8 +96,10 @@ const PostComponent = () => {
                 <p className='postText'>{item.text}</p>
 
                 <div className='postInteract'>
-                  <form>
+                  <form onSubmit={replyCommentHandler}>
                     <input
+                      onChange={(e) => setInputValue(e.target.value)}
+                      value={inputValue}
                       placeholder='comment'
                       className='commentInput'
                       type='text'
@@ -126,7 +126,7 @@ const PostComponent = () => {
               <hr />
 
               {/* comment starts here */}
-              {commentTest.map((item, index) => (
+              {item.comments.map((item, index) => (
                 <div
                   key={index}
                   className='commentDiv'
@@ -142,10 +142,10 @@ const PostComponent = () => {
                     className='mainPostContent'
                   >
                     <div>
-                      <h6>Comment 1</h6>
+                      <h6>{item.user}</h6>
                     </div>
 
-                    <p className='postText'>This is a comment</p>
+                    <p className='postText'>{item.text}</p>
 
                     <div>
                       <div>
