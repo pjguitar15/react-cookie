@@ -4,19 +4,20 @@ const PostComponent = () => {
   const [postData, setPostData] = useContext(PostData)
   const [currLoggedIn] = useContext(CurrLoggedIn)
   const [replyShow, setReplyShow] = useState(false)
-
-  const commentTest = [
+  const [commentTest, setCommentTest] = useState([
     {
       id: 1,
       username: 'test',
       text: 'lorem pipsun',
+      show: false,
     },
     {
       id: 2,
       username: 'testp',
       text: 'lorem pipsunfdsfsd',
+      show: false,
     },
-  ]
+  ])
 
   // handlers likeCount increment
   const niceHandler = (id) => {
@@ -59,7 +60,14 @@ const PostComponent = () => {
   }
 
   const replyHandler = (id) => {
-    setReplyShow(!replyShow)
+    const updatelist = commentTest.map((item) => {
+      if (item.id === id) {
+        const currShow = item.show
+        return { ...item, show: !currShow }
+      }
+      return item
+    })
+    setCommentTest([...updatelist])
   }
   return (
     <>
@@ -168,7 +176,7 @@ const PostComponent = () => {
                         </button>
                       </div>
                       <input
-                        style={{ display: replyShow ? 'block' : 'none' }}
+                        style={{ display: item.show ? 'block' : 'none' }}
                         placeholder='Reply'
                         className='replyInput'
                         type='text'
