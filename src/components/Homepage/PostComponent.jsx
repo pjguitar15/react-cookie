@@ -1,14 +1,31 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { PostData, CurrLoggedIn } from '../../GlobalState'
 const PostComponent = () => {
   const [postData, setPostData] = useContext(PostData)
   const [currLoggedIn] = useContext(CurrLoggedIn)
+  const [replyShow, setReplyShow] = useState(false)
 
+  const commentTest = [
+    {
+      id: 1,
+      username: 'test',
+      text: 'lorem pipsun',
+    },
+    {
+      id: 2,
+      username: 'testp',
+      text: 'lorem pipsunfdsfsd',
+    },
+  ]
+
+  // handlers likeCount increment
   const niceHandler = (id) => {
     const updatedList = postData.map((item) => {
       if (item.id === id) {
+        // lets users only able to hit like once
         const isLiked = item.likes.includes(currLoggedIn.fullname)
 
+        // ternary, if user is on likedUser list, then returns back items without updating anything
         return !isLiked
           ? {
               ...item,
@@ -21,11 +38,13 @@ const PostComponent = () => {
     })
     setPostData([...updatedList])
   }
+  // handlers dislikeCount increment
   const nopeHandler = (id) => {
     const updatedList = postData.map((item) => {
       if (item.id === id) {
+        // lets users only able to hit dislike once
         const isDisLiked = item.dislikes.includes(currLoggedIn.fullname)
-
+        // ternary, if user is on dislikedUser list, then returns back items without updating anything
         return !isDisLiked
           ? {
               ...item,
@@ -37,6 +56,10 @@ const PostComponent = () => {
       return item
     })
     setPostData([...updatedList])
+  }
+
+  const replyHandler = (id) => {
+    setReplyShow(!replyShow)
   }
   return (
     <>
@@ -95,61 +118,65 @@ const PostComponent = () => {
               <hr />
 
               {/* comment starts here */}
-              <div
-                className='commentDiv'
-                style={{ display: 'flex', marginBottom: '20px' }}
-              >
-                <div style={{ width: '10%' }}></div>
+              {commentTest.map((item, index) => (
                 <div
-                  style={{
-                    width: '90%',
-                    borderLeft: '5px #F2F2F2 solid',
-                    paddingLeft: '20px',
-                  }}
-                  className='mainPostContent'
+                  key={index}
+                  className='commentDiv'
+                  style={{ display: 'flex', marginBottom: '20px' }}
                 >
-                  <div>
-                    <h6>Comment 1</h6>
-                  </div>
-
-                  <p className='postText'>This is a comment</p>
-
-                  <div>
+                  <div style={{ width: '10%' }}></div>
+                  <div
+                    style={{
+                      width: '90%',
+                      borderLeft: '5px #F2F2F2 solid',
+                      paddingLeft: '20px',
+                    }}
+                    className='mainPostContent'
+                  >
                     <div>
-                      <button
-                        onClick={() => niceHandler(item.id)}
-                        style={{ fontSize: '10px', padding: '6px 10px' }}
-                        className='likeButton'
-                      >
-                        <i className='fas fa-thumbs-up'></i> nice{item.nice}
-                      </button>
-                      <button
-                        onClick={() => nopeHandler(item.id)}
-                        style={{ fontSize: '10px', padding: '6px 10px' }}
-                        className='likeButton'
-                      >
-                        <i className='fas fa-thumbs-down'></i> nope{item.nope}
-                      </button>
-                      <button
-                        style={{ fontSize: '10px', padding: '6px 10px' }}
-                        className='likeButton'
-                      >
-                        <i
-                          style={{ marginRight: '4px' }}
-                          class='fas fa-comment'
-                        ></i>
-                        reply
-                      </button>
+                      <h6>Comment 1</h6>
                     </div>
-                    <input
-                      style={{ display: 'none' }}
-                      placeholder='Reply'
-                      className='replyInput'
-                      type='text'
-                    />
+
+                    <p className='postText'>This is a comment</p>
+
+                    <div>
+                      <div>
+                        <button
+                          onClick={() => niceHandler(item.id)}
+                          style={{ fontSize: '10px', padding: '6px 10px' }}
+                          className='likeButton'
+                        >
+                          <i className='fas fa-thumbs-up'></i> nice{item.nice}
+                        </button>
+                        <button
+                          onClick={() => nopeHandler(item.id)}
+                          style={{ fontSize: '10px', padding: '6px 10px' }}
+                          className='likeButton'
+                        >
+                          <i className='fas fa-thumbs-down'></i> nope{item.nope}
+                        </button>
+                        <button
+                          onClick={() => replyHandler(item.id)}
+                          style={{ fontSize: '10px', padding: '6px 10px' }}
+                          className='likeButton'
+                        >
+                          <i
+                            style={{ marginRight: '4px' }}
+                            className='fas fa-comment'
+                          ></i>
+                          reply
+                        </button>
+                      </div>
+                      <input
+                        style={{ display: replyShow ? 'block' : 'none' }}
+                        placeholder='Reply'
+                        className='replyInput'
+                        type='text'
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
 
               {/* comment ends here */}
             </div>

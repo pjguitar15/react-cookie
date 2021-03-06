@@ -21,7 +21,7 @@ const GlobalState = ({ children }) => {
   // State
   const [profileUrl, setProfileUrl] = useState('')
   const [selectedProf, setSelectedProf] = useState('')
-  const [postData, setPostData] = useState([{ id: Date.now(), fullname: 'Creator', text: 'Hello World, glad to see you here! This is the post section. Feel free to post anything and try hitting nice button too!', img: 'https://scontent.fmnl4-4.fna.fbcdn.net/v/t1.0-9/129475304_4760457177361096_1542524321202343372_o.jpg?_nc_cat=109&ccb=3&_nc_sid=09cbfe&_nc_ohc=zx0K5X5a-cMAX_wgsqp&_nc_oc=AQm3lyAVKcVFw5rguP75l0GARFPnMMVWg4JdpIXBM4GbdvJRrhmomfRcPbI_wf2xU9X5fS7T35cDRO-bZqKgBmsX&_nc_ht=scontent.fmnl4-4.fna&oh=8ed99e3169db536ac98970e779608358&oe=606302C6', nice: 0, nope: 0, likes: [], dislikes: [] }])
+  const [postData, setPostData] = useState([{ id: Date.now(), fullname: 'Creator', text: 'Hello World, glad to see you here! This is the post section. Feel free to post anything and try hitting nice button too!', img: 'https://scontent.fmnl4-4.fna.fbcdn.net/v/t1.0-9/129475304_4760457177361096_1542524321202343372_o.jpg?_nc_cat=109&ccb=3&_nc_sid=09cbfe&_nc_ohc=zx0K5X5a-cMAX_wgsqp&_nc_oc=AQm3lyAVKcVFw5rguP75l0GARFPnMMVWg4JdpIXBM4GbdvJRrhmomfRcPbI_wf2xU9X5fS7T35cDRO-bZqKgBmsX&_nc_ht=scontent.fmnl4-4.fna&oh=8ed99e3169db536ac98970e779608358&oe=606302C6', nice: 0, nope: 0, likes: [], dislikes: [], comments: [] }])
   const [userData, setUserData] = useState([
     {
       id: 1,
@@ -52,7 +52,7 @@ const GlobalState = ({ children }) => {
     e.preventDefault()
     setAddPostInput('')
     // FIX THIS!
-    setPostData([...postData, { id: Date.now(), fullname: currLoggedIn.fullname, text: addPostInput, img: currLoggedIn.img, nice: 0, nope: 0, likes: [], dislikes: [] }])
+    setPostData([...postData, { id: Date.now(), fullname: currLoggedIn.fullname, text: addPostInput, img: currLoggedIn.img, nice: 0, nope: 0, likes: [], dislikes: [], comments: [] }])
     console.log(postData)
   }
 
