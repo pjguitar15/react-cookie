@@ -28,7 +28,6 @@ const GlobalState = ({ children }) => {
         id: 1,
         user: 'Another user',
         text: 'Hello',
-        show: false
       }
     ]
   }])

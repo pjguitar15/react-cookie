@@ -4,21 +4,7 @@ const PostComponent = () => {
   const [postData, setPostData] = useContext(PostData)
   const [currLoggedIn] = useContext(CurrLoggedIn)
   const [inputValue, setInputValue] = useState('')
-  const [commentTest, setCommentTest] = useState([
-    {
-      id: 1,
-      username: 'test',
-      text: 'lorem pipsun',
-      show: false,
-    },
-    {
-      id: 2,
-      username: 'testp',
-      text: 'lorem pipsunfdsfsd',
-      show: false,
-    },
-  ])
-
+  const [CurrCommReplyId, setCurrCommReplyId] = useState('')
   // handlers likeCount increment
   const niceHandler = (id) => {
     const updatedList = postData.map((item) => {
@@ -61,12 +47,23 @@ const PostComponent = () => {
 
   const replyCommentHandler = (e) => {
     e.preventDefault()
-    alert(inputValue)
+    const test = postData.map((item) => {
+      if (item.id === CurrCommReplyId) {
+        item.comments.push({
+          id: Date.now(),
+          fullname: currLoggedIn.fullname,
+          user: currLoggedIn.username,
+          text: inputValue,
+        })
+        return item
+      }
+      return item
+    })
+    console.log(test)
+    setInputValue('')
   }
 
-  const replyHandler = (id) => {
-    
-  }
+  const replyHandler = (id) => {}
   return (
     <>
       {postData
@@ -98,11 +95,14 @@ const PostComponent = () => {
                 <div className='postInteract'>
                   <form onSubmit={replyCommentHandler}>
                     <input
+                      onClick={() => setCurrCommReplyId(item.id)}
                       onChange={(e) => setInputValue(e.target.value)}
                       value={inputValue}
                       placeholder='comment'
                       className='commentInput'
                       type='text'
+                      name='replyvalue'
+                      autoComplete='off'
                     />
                   </form>
                   <div>
@@ -126,65 +126,67 @@ const PostComponent = () => {
               <hr />
 
               {/* comment starts here */}
-              {item.comments.map((item, index) => (
-                <div
-                  key={index}
-                  className='commentDiv'
-                  style={{ display: 'flex', marginBottom: '20px' }}
-                >
-                  <div style={{ width: '10%' }}></div>
+              {item.comments
+                .map((item, index) => (
                   <div
-                    style={{
-                      width: '90%',
-                      borderLeft: '5px #F2F2F2 solid',
-                      paddingLeft: '20px',
-                    }}
-                    className='mainPostContent'
+                    key={index}
+                    className='commentDiv'
+                    style={{ display: 'flex', marginBottom: '20px' }}
                   >
-                    <div>
-                      <h6>{item.user}</h6>
-                    </div>
-
-                    <p className='postText'>{item.text}</p>
-
-                    <div>
+                    <div style={{ width: '5%' }}></div>
+                    <div
+                      style={{
+                        width: '95%',
+                        borderLeft: '5px #F2F2F2 solid',
+                        paddingLeft: '20px',
+                      }}
+                      className='mainPostContent'
+                    >
                       <div>
-                        <button
-                          onClick={() => niceHandler(item.id)}
-                          style={{ fontSize: '10px', padding: '6px 10px' }}
-                          className='likeButton'
-                        >
-                          <i className='fas fa-thumbs-up'></i> nice{item.nice}
-                        </button>
-                        <button
-                          onClick={() => nopeHandler(item.id)}
-                          style={{ fontSize: '10px', padding: '6px 10px' }}
-                          className='likeButton'
-                        >
-                          <i className='fas fa-thumbs-down'></i> nope{item.nope}
-                        </button>
-                        <button
-                          onClick={() => replyHandler(item.id)}
-                          style={{ fontSize: '10px', padding: '6px 10px' }}
-                          className='likeButton'
-                        >
-                          <i
-                            style={{ marginRight: '4px' }}
-                            className='fas fa-comment'
-                          ></i>
-                          reply
-                        </button>
+                        <h6>{item.user}</h6>
                       </div>
-                      <input
-                        style={{ display: item.show ? 'block' : 'none' }}
-                        placeholder='Reply'
-                        className='replyInput'
-                        type='text'
-                      />
+
+                      <p className='postText'>{item.text}</p>
+
+                      <div>
+                        <div>
+                          <button
+                            onClick={() => niceHandler(item.id)}
+                            style={{ fontSize: '10px', padding: '6px 10px' }}
+                            className='likeButton'
+                          >
+                            <i className='fas fa-thumbs-up'></i> nice{item.nice}
+                          </button>
+                          <button
+                            onClick={() => nopeHandler(item.id)}
+                            style={{ fontSize: '10px', padding: '6px 10px' }}
+                            className='likeButton'
+                          >
+                            <i className='fas fa-thumbs-down'></i> nope
+                            {item.nope}
+                          </button>
+                          {/* <button
+                            onClick={() => replyHandler(item.id)}
+                            style={{ fontSize: '10px', padding: '6px 10px' }}
+                            className='likeButton'
+                          >
+                            <i
+                              style={{ marginRight: '4px' }}
+                              className='fas fa-comment'
+                            ></i>
+                            reply
+                          </button> */}
+                        </div>
+                        {/* <input
+                          placeholder='Reply'
+                          className='replyInput'
+                          type='text'
+                        /> */}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+                .reverse()}
 
               {/* comment ends here */}
             </div>
