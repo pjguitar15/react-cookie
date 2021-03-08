@@ -4,6 +4,8 @@ const PostComponent = () => {
   const [postData, setPostData] = useContext(PostData)
   const [currLoggedIn] = useContext(CurrLoggedIn)
   const [inputValue, setInputValue] = useState('')
+  
+  // to grab the comment ID to determine which comment to update
   const [CurrCommReplyId, setCurrCommReplyId] = useState('')
   // handlers likeCount increment
   const niceHandler = (id) => {
@@ -54,43 +56,59 @@ const PostComponent = () => {
           fullname: currLoggedIn.fullname,
           user: currLoggedIn.username,
           text: inputValue,
+          img: currLoggedIn.img,
+          likes: [],
+          dislikes: [],
+          likeCount: 1,
+          dislikeCount: 0,
         })
         return item
       }
       return item
     })
-    console.log(test)
     setInputValue('')
+    console.log(test)
+    // alert('test')
   }
 
-  const replyHandler = (id) => {}
+  const replyNiceHandler = (id) => {
+    alert('test')
+  }
+
+  const replyNopeHandler = (id) => {
+    alert('test')
+  }
+
   return (
     <>
       {postData
         .map((item, index) => (
-          <div key={index} className='postComponent'>
-            <div className='postParent'>
-              <div className='postUserImg'>
-                <div
-                  style={{
-                    width: '100%',
-                    height: '50%',
-                  }}
-                  className='imgParent'
-                >
-                  <img
-                    style={{ clipPath: 'circle()', objectFit: 'cover' }}
-                    src={item.img}
-                    alt='userimg'
-                  />
-                </div>
-              </div>
+          <div key={index} className='postComponent mt-5 '>
+            <div className='postParent shadow-sm'>
               <div className='mainPostContent'>
-                <div>
-                  <h5>{item.fullname}</h5>
+                {/* row */}
+                <div className='row d-flex align-items-center'>
+                  <div className='postUserImg col-2 p-0'>
+                    <div
+                      style={{
+                        width: '100%',
+                        height: '50%',
+                      }}
+                      className='imgParent'
+                    >
+                      <img
+                        style={{ clipPath: 'circle()', objectFit: 'cover' }}
+                        src={item.img}
+                        alt='userimg'
+                      />
+                    </div>
+                  </div>
+                  <div className='col-10 px-0'>
+                    <h5>{item.fullname}</h5>
+                    <p className='postText'>{item.text}</p>
+                  </div>
                 </div>
-
-                <p className='postText'>{item.text}</p>
+                {/* end of row */}
 
                 <div className='postInteract'>
                   <form onSubmit={replyCommentHandler}>
@@ -101,7 +119,6 @@ const PostComponent = () => {
                       placeholder='comment'
                       className='commentInput'
                       type='text'
-                      name='replyvalue'
                       autoComplete='off'
                     />
                   </form>
@@ -123,7 +140,9 @@ const PostComponent = () => {
                   </div>
                 </div>
               </div>
-              <hr />
+              {item.comments.length > 0 && (
+                <hr style={{ height: '0.3px', color: 'lightgrey' }} />
+              )}
 
               {/* comment starts here */}
               {item.comments
@@ -142,46 +161,44 @@ const PostComponent = () => {
                       }}
                       className='mainPostContent'
                     >
-                      <div>
-                        <h6>{item.user}</h6>
+                      <div
+                        className='row'
+                        style={{ display: 'flex', alignItems: 'center' }}
+                      >
+                        <div className='postUserImg col-1 p-0'>
+                          <div className='imgParent'>
+                            <img
+                              style={{
+                                clipPath: 'circle()',
+                                objectFit: 'cover',
+                              }}
+                              src={item.img}
+                              alt='userimg'
+                            />
+                          </div>
+                        </div>
+                        <div className='col-11 p-0'>
+                          <h6>{item.fullname}</h6>
+                          <p className='postText'>{item.text}</p>
+                        </div>
                       </div>
-
-                      <p className='postText'>{item.text}</p>
-
                       <div>
-                        <div>
+                        <div className='pt-1'>
                           <button
-                            onClick={() => niceHandler(item.id)}
-                            style={{ fontSize: '10px', padding: '6px 10px' }}
-                            className='likeButton'
+                            onClick={() => replyNiceHandler(item.id)}
+                            className='reply-like-button'
                           >
-                            <i className='fas fa-thumbs-up'></i> nice{item.nice}
+                            <i className='fas fa-thumbs-up'></i> nice
+                            {item.likeCount}
                           </button>
                           <button
-                            onClick={() => nopeHandler(item.id)}
-                            style={{ fontSize: '10px', padding: '6px 10px' }}
-                            className='likeButton'
+                            onClick={() => replyNopeHandler(item.id)}
+                            className='reply-like-button'
                           >
                             <i className='fas fa-thumbs-down'></i> nope
                             {item.nope}
                           </button>
-                          {/* <button
-                            onClick={() => replyHandler(item.id)}
-                            style={{ fontSize: '10px', padding: '6px 10px' }}
-                            className='likeButton'
-                          >
-                            <i
-                              style={{ marginRight: '4px' }}
-                              className='fas fa-comment'
-                            ></i>
-                            reply
-                          </button> */}
                         </div>
-                        {/* <input
-                          placeholder='Reply'
-                          className='replyInput'
-                          type='text'
-                        /> */}
                       </div>
                     </div>
                   </div>
