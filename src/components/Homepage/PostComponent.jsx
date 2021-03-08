@@ -1,12 +1,17 @@
 import React, { useContext, useState } from 'react'
 import { PostData, CurrLoggedIn } from '../../GlobalState'
-
+import { Modal, Button } from 'react-bootstrap'
 const PostComponent = () => {
   const [postData, setPostData] = useContext(PostData)
   const [currLoggedIn] = useContext(CurrLoggedIn)
   const [inputValue, setInputValue] = useState('')
   // to grab the comment ID to determine which comment to update
-  const [CurrCommReplyId, setCurrCommReplyId] = useState('')
+  const [currCommReplyId, setCurrCommReplyId] = useState('')
+  const [showAction, setShowAction] = useState(false)
+  const [currDeleteId, setCurrDeleteId] = useState('')
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => setShow(false)
 
   // handlers likeCount increment
   const niceHandler = (id) => {
@@ -29,6 +34,7 @@ const PostComponent = () => {
     })
     setPostData([...updatedList])
   }
+
   // handlers dislikeCount increment
   const nopeHandler = (id) => {
     const updatedList = postData.map((item) => {
@@ -52,8 +58,8 @@ const PostComponent = () => {
 
   const replyCommentHandler = (e) => {
     e.preventDefault()
-    const test = postData.map((item) => {
-      if (item.id === CurrCommReplyId) {
+    postData.map((item) => {
+      if (item.id === currCommReplyId) {
         item.comments.push({
           id: Date.now(),
           fullname: currLoggedIn.fullname,
@@ -70,7 +76,7 @@ const PostComponent = () => {
       return item
     })
     setInputValue('')
-    console.log(test)
+    // console.log(test)
     // alert('test')
   }
 
@@ -82,21 +88,68 @@ const PostComponent = () => {
     alert('test')
   }
 
+  const showDeleteDialog = (id) => {
+    setShow(true)
+    setCurrDeleteId(id)
+  }
+
+  // delete handler
+  const deleteHandler = () => {
+    setShow(false)
+    // alert('post deleted')
+    const updated = postData.filter((item) => item.id !== currDeleteId)
+    setPostData([...updated])
+  }
+
+  // edit handler
+  const editHandler = () => {
+    alert('edit')
+  }
   return (
     <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Dialog</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
+        <Modal.Footer>
+          <Button className='btn-sm' variant='danger' onClick={deleteHandler}>
+            Delete
+          </Button>
+          <Button className='btn-sm' variant='secondary' onClick={handleClose}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {postData
         .map((item, index) => (
           <div key={index} className='postComponent mt-5 '>
             <div className='postParent shadow-sm pr-0'>
+              {/* actions dropdown */}
               <div className='col-12 text-right'>
                 <i
+                  onClick={() => setShowAction(!showAction)}
+                  style={{ position: 'relative' }}
                   type='button'
                   className='text-right fas fa-ellipsis-h'
-                  data-toggle='popover'
-                  title='Popover title'
-                  data-content="And here's some amazing content. It's very engaging. Right?"
                 ></i>
+
+                <ul
+                  style={{ display: showAction ? 'block' : 'none' }}
+                  className='list-group action-drop-down text-light shadow-sm col-2 p-0 text-center rounded'
+                >
+                  <li
+                    onClick={() => showDeleteDialog(item.id)}
+                    className='list-item bg-danger'
+                  >
+                    Delete
+                  </li>
+                  <li onClick={editHandler} className='list-item bg-info'>
+                    Edit
+                  </li>
+                </ul>
               </div>
+              {/* end actions dropdown */}
               <div className='mainPostContent'>
                 {/* row */}
                 <div className='row d-flex align-items-center'>

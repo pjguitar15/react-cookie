@@ -6,7 +6,6 @@ import Signup from './components/Signup.jsx'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css';
 const App = () => {
   return (
     <div>

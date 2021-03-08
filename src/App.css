@@ -290,7 +290,18 @@ nav {
 .replyInput:focus {
   outline: none;
 }
-
+.action-drop-down {
+  position: absolute;
+  right: 0;
+}
+.list-item {
+  user-select: none;
+  font-size: 13px;
+  padding: 4px 0px;
+}
+.list-item:hover {
+  cursor: pointer;
+}
 @media (max-width: 576px) {
   .loginParent {
     width: 100%;
