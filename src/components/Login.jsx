@@ -15,9 +15,11 @@ const Login = () => {
       ) : (
         <div className='Login'>
           <Alert variant='info' className='text-center'>
-            <b>Test account:</b>
+            <b>Test accounts:</b>
             <br />
             <b>Username:</b> admin / <b>Password:</b> admin
+            <br />
+            <b>Username:</b> adminadmin / <b>Password:</b> adminadmin
           </Alert>
           <div>
             <h2 className='loginText'>Login</h2>

@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { PostData, CurrLoggedIn } from '../../GlobalState'
+
 const PostComponent = () => {
   const [postData, setPostData] = useContext(PostData)
   const [currLoggedIn] = useContext(CurrLoggedIn)
   const [inputValue, setInputValue] = useState('')
-  
   // to grab the comment ID to determine which comment to update
   const [CurrCommReplyId, setCurrCommReplyId] = useState('')
+
   // handlers likeCount increment
   const niceHandler = (id) => {
     const updatedList = postData.map((item) => {
@@ -20,6 +21,7 @@ const PostComponent = () => {
               ...item,
               nice: item.nice + 1,
               likes: [...item.likes, currLoggedIn.fullname],
+              isLiked: true,
             }
           : { ...item }
       }
@@ -39,6 +41,7 @@ const PostComponent = () => {
               ...item,
               nope: item.nope + 1,
               dislikes: [...item.dislikes, currLoggedIn.fullname],
+              isDisliked: true,
             }
           : { ...item }
       }
@@ -84,7 +87,16 @@ const PostComponent = () => {
       {postData
         .map((item, index) => (
           <div key={index} className='postComponent mt-5 '>
-            <div className='postParent shadow-sm'>
+            <div className='postParent shadow-sm pr-0'>
+              <div className='col-12 text-right'>
+                <i
+                  type='button'
+                  className='text-right fas fa-ellipsis-h'
+                  data-toggle='popover'
+                  title='Popover title'
+                  data-content="And here's some amazing content. It's very engaging. Right?"
+                ></i>
+              </div>
               <div className='mainPostContent'>
                 {/* row */}
                 <div className='row d-flex align-items-center'>
@@ -108,36 +120,69 @@ const PostComponent = () => {
                     <p className='postText'>{item.text}</p>
                   </div>
                 </div>
+
                 {/* end of row */}
 
                 <div className='postInteract'>
-                  <form onSubmit={replyCommentHandler}>
-                    <input
-                      onClick={() => setCurrCommReplyId(item.id)}
-                      onChange={(e) => setInputValue(e.target.value)}
-                      value={inputValue}
-                      placeholder='comment'
-                      className='commentInput'
-                      type='text'
-                      autoComplete='off'
-                    />
-                  </form>
+                  {/* start of btn div */}
                   <div>
                     <button
                       onClick={() => niceHandler(item.id)}
-                      style={{ fontSize: '13px' }}
                       className='likeButton'
+                      style={{ color: item.isLiked ? '#1288d6' : '#9da0a1' }}
                     >
-                      <i className='fas fa-thumbs-up'></i> nice{item.nice}
+                      <i className='fas fa-thumbs-up'></i> nice
+                      {item.nice > 0 && item.nice}
                     </button>
                     <button
                       onClick={() => nopeHandler(item.id)}
-                      style={{ fontSize: '13px' }}
                       className='likeButton'
+                      style={{
+                        color: item.isDisliked ? '#DE3E44' : '#9da0a1',
+                      }}
                     >
-                      <i className='fas fa-thumbs-down'></i> nope{item.nope}
+                      <i className='fas fa-thumbs-down'></i> nope
+                      {item.nope > 0 && item.nope}
                     </button>
                   </div>
+                  {/* End of button div */}
+
+                  {/* form and img start */}
+                  <div className='row d-flex align-items-center mt-2 mx-1'>
+                    <div className='postUserImg col-1 p-0'>
+                      <div
+                        style={{
+                          width: '80%',
+                          height: '80%',
+                        }}
+                        className='imgParent d-flex justify-content-center'
+                      >
+                        <img
+                          style={{
+                            clipPath: 'circle()',
+                            objectFit: 'cover',
+                            height: '100%',
+                          }}
+                          src={currLoggedIn.img}
+                          alt='userimg'
+                        />
+                      </div>
+                    </div>
+                    <div className='col-10 p-0'>
+                      <form onSubmit={replyCommentHandler} className=' p-0'>
+                        <input
+                          onClick={() => setCurrCommReplyId(item.id)}
+                          onChange={(e) => setInputValue(e.target.value)}
+                          value={inputValue}
+                          placeholder='comment'
+                          className='commentInput col-8 mt-3'
+                          type='text'
+                          autoComplete='off'
+                        />
+                      </form>
+                    </div>
+                  </div>
+                  {/* form and img end */}
                 </div>
               </div>
               {item.comments.length > 0 && (

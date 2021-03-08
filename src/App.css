@@ -98,7 +98,13 @@ nav {
   width: 95%;
   border-radius: 7px;
 }
-
+.fa-ellipsis-h {
+  font-size: 14px;
+  color: rgb(51, 51, 51);
+}
+.fa-ellipsis-h:hover {
+  cursor: pointer;
+}
 .postText {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.7);
@@ -113,13 +119,16 @@ nav {
 }
 .mainPostContent {
   width: 90%;
-  padding: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
 }
 .commentInput {
-  padding: 7px 25px;
+  padding: 6px 25px;
   background-color: #f2f2f2;
   border: none;
   border-radius: 20px;
+  font-size: 14px;
 }
 .commentInput:focus {
   outline: none;
@@ -127,20 +136,19 @@ nav {
 .postInteract {
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 }
 .likeButton {
   padding: 7px 10px;
   border: none;
   border-radius: 10px;
-  background-color: #2596e3;
-  color: white;
   font-weight: 700;
   margin-left: 7px;
+  font-size: 12px;
 }
 .likeButton:hover {
   cursor: pointer;
-  background-color: #45a7e7;
+  color: #1288d6;
   transition: 0.3s;
 }
 .reply-like-button {
@@ -299,9 +307,7 @@ nav {
   .likeButton {
     margin-top: 20px;
   }
-  .commentInput {
-    width: 80%;
-  }
+
   .postParent {
     display: flex;
     flex-direction: column;
@@ -323,9 +329,7 @@ nav {
   .loginParent {
     width: 90%;
   }
-  .commentInput {
-    width: 110%;
-  }
+
   .imgParent img {
     width: 110%;
   }
@@ -336,9 +340,7 @@ nav {
   .loginParent {
     width: 80%;
   }
-  .commentInput {
-    width: 150%;
-  }
+
   .imgParent img {
     width: 100%;
   }
@@ -352,9 +354,7 @@ nav {
   .loginParent {
     width: 60%;
   }
-  .commentInput {
-    width: 190%;
-  }
+
   .imgParent img {
     width: 100%;
   }
@@ -372,9 +372,7 @@ nav {
   .loginParent {
     width: 50%;
   }
-  .commentInput {
-    width: 240%;
-  }
+
   .imgParent img {
     width: 90%;
     margin-top: 0;
