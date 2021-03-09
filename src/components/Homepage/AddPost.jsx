@@ -43,9 +43,9 @@ const AddPost = () => {
               >
                 <i className='fas fa-cookie-bite'></i> Post
               </button>
-              <button style={{ fontSize: '12px' }} className='likeButton'>
+              {/* <button style={{ fontSize: '12px' }} className='likeButton'>
                 <i className='fas fa-image'></i> Add photo
-              </button>
+              </button> */}
               <button style={{ fontSize: '12px' }} className='likeButton'>
                 <i className='fas fa-smile-beam'></i> Feeling
               </button>

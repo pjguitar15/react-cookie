@@ -35,11 +35,13 @@ const Navbar = () => {
         >
           <h6 style={{ marginTop: '10px' }}>{currLoggedIn.fullname}</h6>
           <i className='fas fa-chevron-down'></i>
-          <div style={{ display: showDropDown }} className='dropDown'>
+          <div
+            style={{ display: showDropDown }}
+            className='dropDown'
+            onClick={logoutHandler}
+          >
             <ul>
-              <li onClick={logoutHandler} className='dropDownList'>
-                Logout
-              </li>
+              <li className='dropDownList'>Logout</li>
             </ul>
           </div>
         </div>

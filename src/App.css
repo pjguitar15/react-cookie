@@ -229,10 +229,11 @@ nav {
   list-style: none;
   margin: 10px 0px;
 }
-.dropDownList:hover {
+.dropDown:hover {
   background-color: #2596e3;
   color: white;
   cursor: pointer;
+  animation-duration: 0.3s;
 }
 
 .homePageRow {
