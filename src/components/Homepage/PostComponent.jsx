@@ -8,7 +8,7 @@ const PostComponent = () => {
   // to grab the comment ID to determine which comment to update
   const [currCommReplyId, setCurrCommReplyId] = useState('')
   const [showAction, setShowAction] = useState(false)
-  const [currDeleteId, setCurrDeleteId] = useState('')
+  const [currDeleteUsername, setCurrDeleteUsername] = useState('')
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
@@ -80,31 +80,38 @@ const PostComponent = () => {
     // alert('test')
   }
 
-  const replyNiceHandler = (id) => {
-    alert('test')
-  }
+  // commented out bec, buttons were removed
+  // const replyNiceHandler = (id) => {
+  //   alert('test')
+  // }
 
-  const replyNopeHandler = (id) => {
-    alert('test')
-  }
+  // const replyNopeHandler = (id) => {
+  //   alert('test')
+  // }
 
   const showDeleteDialog = (id) => {
-    setShow(true)
-    setCurrDeleteId(id)
+    if (currLoggedIn.username === id) {
+      setShow(true)
+      setCurrDeleteUsername(id)
+    } else {
+      alert('You can only delete your own posts')
+    }
   }
 
   // delete handler
   const deleteHandler = () => {
     setShow(false)
-    // alert('post deleted')
-    const updated = postData.filter((item) => item.id !== currDeleteId)
+    const updated = postData.filter(
+      (item) => item.username !== currDeleteUsername
+    )
+
     setPostData([...updated])
   }
 
   // edit handler
-  const editHandler = () => {
-    alert('edit')
-  }
+  // const editHandler = () => {
+  //   alert('edit')
+  // }
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -123,7 +130,7 @@ const PostComponent = () => {
       </Modal>
       {postData
         .map((item, index) => (
-          <div key={index} className='postComponent mt-5 '>
+          <div key={index} className='postComponent mt-5'>
             <div className='postParent shadow-sm pr-0'>
               {/* actions dropdown */}
               <div className='col-12 text-right'>
@@ -139,14 +146,14 @@ const PostComponent = () => {
                   className='list-group action-drop-down text-light shadow-sm col-2 p-0 text-center rounded'
                 >
                   <li
-                    onClick={() => showDeleteDialog(item.id)}
+                    onClick={() => showDeleteDialog(item.username)}
                     className='list-item bg-danger'
                   >
                     Delete
                   </li>
-                  <li onClick={editHandler} className='list-item bg-info'>
+                  {/* <li onClick={editHandler} className='list-item bg-info'>
                     Edit
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               {/* end actions dropdown */}
@@ -280,7 +287,7 @@ const PostComponent = () => {
                           <p className='postText'>{item.text}</p>
                         </div>
                       </div>
-                      <div>
+                      {/* <div>
                         <div className='pt-1'>
                           <button
                             onClick={() => replyNiceHandler(item.id)}
@@ -297,7 +304,7 @@ const PostComponent = () => {
                             {item.nope}
                           </button>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ))
